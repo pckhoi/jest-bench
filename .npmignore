@@ -1,0 +1,6 @@
+benchmarks
+src
+test
+.editorignore
+*.config.ts
+tsconfig.json
