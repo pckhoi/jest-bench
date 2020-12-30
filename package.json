@@ -1,6 +1,6 @@
 {
-  "name": "jest-benchmark",
-  "version": "0.1.0",
+  "name": "jest-bench",
+  "version": "0.1.1",
   "description": "Run benchmark with Jest",
   "main": "dist/index.js",
   "scripts": {
@@ -8,11 +8,13 @@
     "prebuild": "rimraf dist",
     "build": "tsc"
   },
+  "prepublish": "npm run build",
   "keywords": [
     "jest",
     "benchmark"
   ],
   "author": "Khoi Pham <pckhoi@gmail.com>",
+  "repository": "github:pckhoi/jest-benchmark",
   "license": "MIT",
   "peerDependencies": {
     "jest": "^26.6.3"
