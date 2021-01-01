@@ -1,10 +1,11 @@
 {
   "name": "jest-bench",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run benchmark with Jest",
   "main": "dist/index.js",
   "scripts": {
     "test": "npm run build && jest --projects jest-node.config.ts jest-jsdom.config.ts jest-electron.config.ts",
+    "test:node": "npm run build && jest --projects jest-node.config.ts",
     "prebuild": "rimraf dist",
     "build": "tsc"
   },

@@ -74,3 +74,10 @@ To see more examples, check out `test` folder. You can now run benchmarks like t
 ```bash
 npx jest --projects jest-bench.config.json
 ```
+
+Benchmark results are output to `benchmarks/result.txt` in addition to being print so you might want to add that to .gitignore.
+
+```bash
+# .gitignore
+benchmarks/result.txt
+```
