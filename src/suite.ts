@@ -9,11 +9,19 @@ export const benchmarkSuite = (name: string, desc: SuiteDescription) => {
   describe(name, () => {
     const setup = desc.setup;
     const teardown = desc.teardown;
+    const setupSuite = desc.setupSuite;
+    const teardownSuite = desc.teardownSuite;
+    if (setupSuite) {
+      beforeAll(setupSuite);
+    }
+    if (teardownSuite) {
+      afterAll(teardownSuite);
+    }
     for (let key of Object.keys(desc)) {
-      const fn = desc[key] as () => Promise<void> | void;
-      if (key === "setup" || key === "teardown") {
+      if (["setup", "teardown", "setupSuite", "teardownSuite"].indexOf(key) !== -1) {
         continue;
       } else {
+        const fn = desc[key] as () => Promise<void> | void;
         test(
           key,
           () =>

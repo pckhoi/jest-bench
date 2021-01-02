@@ -81,3 +81,16 @@ Benchmark results are output to `benchmarks/result.txt` in addition to being pri
 # .gitignore
 benchmarks/result.txt
 ```
+
+## Reference
+
+### benchmarkSuite(name, description)
+
+Create and run a new suite. Each suite create and is associated with a `describe` block underneath.
+
+- **name**: string, name of suite.
+- **description**: object, an object with each key represent a single benchmark. Behind the scene each benchmark run in a `test` block therefore you can also write jest assertion, even though it makes little sense to do so as it will affect benchmark result. Special keys include:
+  - **setup**: run before each loop of benchmark. Note that this along with `teardown` is evaled together with the benchmark so once you declare this, any variable define outside of `setup` and `teardown` become invisible to the benchmark. If this and `teardown` are not defined then benchmarks will still be able to see variables in outer scope.
+  - **teardown**: run after each loop of benchmark. Note the caveat above.
+  - **setupSuite**: run once before all benchmarks. This in effect is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown` because of above mentioned caveat.
+  - **teardownSuite**: run once after all benchmarks have concluded.
