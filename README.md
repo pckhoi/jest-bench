@@ -12,7 +12,7 @@ npm i -D jest-bench
 
 Create a jest config file just for running benchmarks. You can use name such as `jest-bench.config.json`.
 
-```json
+```javascript
 {
   // Jest-bench need its own test environemtn to function
   "testEnvironment": "jest-bench/environment",
@@ -90,8 +90,8 @@ Create and run a new suite. Each suite create and is associated with a `describe
 
 - **name**: string, name of suite.
 - **description**: object, an object with each key represent a single benchmark. Behind the scene each benchmark run in a `test` block therefore you can also write jest assertion, even though it makes little sense to do so as it will affect benchmark result. Special keys include:
-  - **setup**: run before each loop of benchmark. Note that this along with `teardown` is evaled together with the benchmark so once you declare this, any variable define outside of `setup` and `teardown` become invisible to the benchmark. If this and `teardown` are not defined then benchmarks will still be able to see variables in outer scope.
+  - **setup**: run before each loop of benchmark. Note that this along with `teardown` are evaled together with the benchmark so once you declare this, any variable defined outside of `setup` and `teardown` become invisible to the benchmark. If this and `teardown` are not defined then benchmarks will still be able to see variables in outer scopes.
   - **teardown**: run after each loop of benchmark. Note the caveat above.
-  - **setupSuite**: run once before all benchmarks. This in effect is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown` because of above mentioned caveat.
+  - **setupSuite**: run once before all benchmarks. This in effect is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown`.
   - **teardownSuite**: run once after all benchmarks have concluded.
 - **timeout**: number of milliseconds before a benchmark timeout. Default to 60000.
