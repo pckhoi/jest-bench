@@ -5,7 +5,7 @@ export type SuiteDescription = {
   [key: string]: (() => Promise<void> | void) | undefined;
 };
 
-export const benchmarkSuite = (name: string, desc: SuiteDescription) => {
+export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 60000) => {
   describe(name, () => {
     const setup = desc.setup;
     const teardown = desc.teardown;
@@ -46,7 +46,7 @@ export const benchmarkSuite = (name: string, desc: SuiteDescription) => {
               });
               bm.run({ async: true });
             }),
-          60000
+          timeout
         );
       }
     }

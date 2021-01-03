@@ -1,10 +1,14 @@
 import { benchmarkSuite } from "../dist";
 
-benchmarkSuite("regexp", {
-  ["test"]: () => {
-    /o/.test("Hello World!");
+benchmarkSuite(
+  "regexp",
+  {
+    ["test"]: () => {
+      /o/.test("Hello World!");
+    },
   },
-});
+  10000
+);
 
 benchmarkSuite("string", {
   ["indexOf"]: () => {

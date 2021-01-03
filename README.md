@@ -84,7 +84,7 @@ benchmarks/result.txt
 
 ## Reference
 
-### benchmarkSuite(name, description)
+### benchmarkSuite(name, description[, timeout])
 
 Create and run a new suite. Each suite create and is associated with a `describe` block underneath.
 
@@ -94,3 +94,4 @@ Create and run a new suite. Each suite create and is associated with a `describe
   - **teardown**: run after each loop of benchmark. Note the caveat above.
   - **setupSuite**: run once before all benchmarks. This in effect is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown` because of above mentioned caveat.
   - **teardownSuite**: run once after all benchmarks have concluded.
+- **timeout**: number of milliseconds before a benchmark timeout. Default to 60000.
