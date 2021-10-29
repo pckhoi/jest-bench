@@ -1,4 +1,4 @@
-import { benchmarkSuite } from "../dist";
+import { benchmarkSuite } from "../src";
 
 benchmarkSuite(
   "regexp",
