@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@jest/environment": "^27.3.1",
+    "@jest/types": "^27.2.5",
     "@types/benchmark": "^2.1.0",
     "@types/jest": "^27.0.2",
     "@types/lodash": "^4.14.166",
