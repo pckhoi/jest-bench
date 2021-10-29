@@ -1,7 +1,8 @@
 import { benchmarkSuite } from "../src";
+import {expect} from "@jest/globals";
 
 benchmarkSuite("error", {
   ["should throw error"]: () => {
-    throw new Error("something wrong!");
+    expect(() => { throw new Error("something wrong!") }).toThrow();
   },
 });
