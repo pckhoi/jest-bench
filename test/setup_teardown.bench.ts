@@ -1,4 +1,4 @@
-import { benchmarkSuite } from "../src";
+import { benchmarkSuite } from "../dist";
 
 let a: number[];
 let b: string[];
