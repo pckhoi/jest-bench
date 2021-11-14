@@ -4,7 +4,7 @@ Run benchmark with Jest, write benchmark files along your test files and benchma
 
 ## Which version to install
 
-Some environments such as `jest-electron` are only useable with Jest version 27, therefore this package take its version after jest version for easy installation:
+Some environments such as `jest-electron` are only useable with Jest version less than 27, therefore this package take its version after jest version for easy installation:
 
 | Jest version | Jest-Bench version |
 | ------------ | ------------------ |
