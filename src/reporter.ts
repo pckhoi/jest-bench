@@ -56,7 +56,7 @@ export default class BenchmarkReporter extends BaseReporter {
               lines.push([
                 name,
                 `${chalk.green(formatPeriod(period))} \xb1`,
-                `${chalk.cyan(`${rme.toFixed(2)} %`)}`,
+                chalk.cyan(`${rme.toFixed(2)} %`),
                 `(${size} run${size == 1 ? " " : "s"} sampled)`,
               ]);
             }
