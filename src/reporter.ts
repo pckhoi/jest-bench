@@ -55,8 +55,9 @@ export default class BenchmarkReporter extends BaseReporter {
               const { period } = times;
               lines.push([
                 name,
-                `${chalk.green(formatPeriod(period))} \xb1 ${chalk.cyan(`${rme.toFixed(2)} %`)}`,
-                `(${size} run${size == 1 ? "" : "s"} sampled)`,
+                `${chalk.green(formatPeriod(period))} \xb1`,
+                `${chalk.cyan(`${rme.toFixed(2)} %`)}`,
+                `(${size} run${size == 1 ? " " : "s"} sampled)`,
               ]);
             }
             const maxWidths: number[] = lines.reduce(
@@ -68,7 +69,10 @@ export default class BenchmarkReporter extends BaseReporter {
               []
             );
             for (let line of lines) {
-              this.log("    " + line.map((v, i) => v.padEnd(maxWidths[i])).join("  "));
+              this.log("    " + line.map((v, i) => {
+                const w = maxWidths[i];
+                return i === 0 ? v.padEnd(w) : v.padStart(w);
+              }).join("  "));
             }
           }
         })
