@@ -13,9 +13,9 @@ const formatPeriod = (num: number) => {
   } else if (num < 10 ** -3) {
     return `${(num * 10 ** 3).toFixed(3)} ms`;
   } else if (num < 1) {
-    return `${(num * 10 ** 3).toFixed(2)} ms`;
+    return `${(num * 10 ** 3).toFixed(2)}  ms`;
   }
-  return `${num.toFixed(2)} s`;
+  return `${num.toFixed(2)}   s`;
 };
 
 export default class BenchmarkReporter extends BaseReporter {
