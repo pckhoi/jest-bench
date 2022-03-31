@@ -1,10 +1,10 @@
 # Jest-Bench
 
-Run benchmark with Jest, write benchmark files along your test files and benchmark using any existing test environment you're using. This package rely on the excellent `benchmark` package to function.
+Run benchmark with Jest. Write benchmark files along with your test files, and benchmark using any existing test environment you're using. This package builds on top of the excellent [benchmark](https://www.npmjs.com/package/benchmark) package.
 
 ## Which version to install
 
-Some environments such as `jest-electron` are only useable with Jest version less than 27, therefore this package take its version after jest version for easy installation:
+Some environments such as `jest-electron` are only useable with Jest version less than 27, therefore this package takes its version after Jest version for easy installation:
 
 | Jest version | Jest-Bench version |
 | ------------ | ------------------ |
@@ -21,7 +21,7 @@ Install
 npm i -D jest-bench
 ```
 
-Create a jest config file just for running benchmarks. You can use name such as `jest-bench.config.json`.
+Create a jest config file just for running benchmarks. You can use names such as `jest-bench.config.json`.
 
 ```javascript
 {
@@ -43,7 +43,10 @@ Create a jest config file just for running benchmarks. You can use name such as 
 }
 ```
 
-To see more examples, look at `jest-*.config.ts` files. You can now write your benchmark files with name `*.bench.js` or save them in `__benchmarks__` folder.
+Now any files with names that match `*.bench.js`, or are inside `__benchmarks__` folder will be considered benchmark files. More examples:
+
+- [jest-jsdom.config.ts](jest-jsdom.config.ts)
+- [jest-node.config.ts](jest-node.config.ts)
 
 ```javascript
 import { benchmarkSuite } from "jest-bench";
@@ -80,13 +83,13 @@ benchmarkSuite("sample", {
 });
 ```
 
-To see more examples, check out `test` folder. You can now run benchmarks like this:
+To see more examples, check out the `test` folder. You can now run benchmarks like this:
 
 ```bash
 npx jest --projects jest-bench.config.json
 ```
 
-Benchmark results are output to `benchmarks/result.txt` in addition to being print so you might want to add that to .gitignore.
+Jest-bench saves benchmark results to `benchmarks/result.txt` in addition to being printed, so you might want to add this folder to .gitignore.
 
 ```bash
 # .gitignore
@@ -97,12 +100,12 @@ benchmarks/result.txt
 
 ### benchmarkSuite(name, description[, timeout])
 
-Create and run a new suite. Each suite create and is associated with a `describe` block underneath.
+Create and run a new suite. Each suite creates and is associated with a `describe` block underneath.
 
 - **name**: string, name of suite.
-- **description**: object, an object with each key represent a single benchmark. Behind the scene each benchmark run in a `test` block therefore you can also write jest assertion, even though it makes little sense to do so as it will affect benchmark result. Special keys include:
-  - **setup**: run before each loop of benchmark. Note that this along with `teardown` are evaled together with the benchmark so once you declare this, any variable defined outside of `setup` and `teardown` become invisible to the benchmark. If this and `teardown` are not defined then benchmarks will still be able to see variables in outer scopes.
+- **description**: object, an object with each key represents a single benchmark. Behind the scene, each benchmark runs in a `test` block. You can also write jest assertions, even though doing so makes little sense as it will affect benchmark results. Special keys include:
+  - **setup**: run before each loop of benchmark. Note that this and `teardown` are evaled together with the benchmark. So once you declare this, any variable defined outside of `setup` and `teardown` becomes invisible to the benchmark. If this and `teardown` are not defined then benchmarks will still be able to see variables in outer scopes.
   - **teardown**: run after each loop of benchmark. Note the caveat above.
-  - **setupSuite**: run once before all benchmarks. This in effect is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown`.
+  - **setupSuite**: run once before all benchmarks. This block, in effect, is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown`.
   - **teardownSuite**: run once after all benchmarks have concluded.
 - **timeout**: number of milliseconds before a benchmark timeout. Default to 60000.
