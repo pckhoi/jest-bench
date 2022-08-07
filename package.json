@@ -4,8 +4,8 @@
   "description": "Run benchmark with Jest",
   "main": "dist/index.js",
   "scripts": {
-    "test": "npm run build && jest --projects jest-node.config.ts jest-jsdom.config.ts",
-    "test:node": "npm run build && jest --projects jest-node.config.ts",
+    "test": "npm run build && jest --projects jest-node.config.js jest-jsdom.config.js",
+    "test:node": "npm run build && jest --projects jest-node.config.js",
     "prebuild": "rimraf dist",
     "build": "tsc"
   },

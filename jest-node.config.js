@@ -1,6 +1,6 @@
-import config from "./jest.config";
+const config = require("./jest.config");
 
-export default {
+module.exports = {
   ...config,
   testEnvironmentOptions: {
     testEnvironment: "jest-environment-node",
