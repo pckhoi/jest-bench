@@ -21,7 +21,7 @@ export default class BenchmarkEnvironment {
 
   constructor(config: ConstructorConfig, context?: EnvironmentContext) {
     const { testEnvironment, testEnvironmentOptions } = config.projectConfig.testEnvironmentOptions;
-    let envModule = testEnvironment || "jest-environment-jsdom";
+    let envModule = testEnvironment || "jest-environment-node";
     if (envModule === "jsdom") {
       envModule = "jest-environment-jsdom";
     }

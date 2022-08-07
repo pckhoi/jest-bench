@@ -29,7 +29,7 @@ Create a jest config file just for running benchmarks. You can use names such as
   "testEnvironment": "jest-bench/environment",
   "testEnvironmentOptions": {
     // still Jest-bench environment will run your environment if you specify it here
-    "testEnvironment": "jest-environment-jsdom",
+    "testEnvironment": "jest-environment-node",
     "testEnvironmentOptions": {
       // specify any option for your environment
     }
