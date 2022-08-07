@@ -10,8 +10,9 @@ Some environments such as `jest-electron` are only useable with Jest version les
 | ------------ | ------------------ |
 | 26.x.x       | 26.x.x             |
 | 27.x.x       | 27.x.x             |
+| 28.x.x       | 28.x.x             |
 
-For contributors, branch `main` works with Jest version 27, while branch `v26` works with Jest version 26.
+For contributors, branch `main` works with Jest version 28.
 
 ## How to use
 
