@@ -10,8 +10,9 @@ Some environments such as `jest-electron` are only useable with Jest version les
 | ------------ | ------------------ |
 | 26.x.x       | 26.x.x             |
 | 27.x.x       | 27.x.x             |
+| 28.x.x       | 28.x.x             |
 
-For contributors, branch `main` works with Jest version 27, while branch `v26` works with Jest version 26.
+For contributors, branch `main` works with Jest version 28.
 
 ## How to use
 
@@ -29,7 +30,7 @@ Create a jest config file just for running benchmarks. You can use names such as
   "testEnvironment": "jest-bench/environment",
   "testEnvironmentOptions": {
     // still Jest-bench environment will run your environment if you specify it here
-    "testEnvironment": "jest-environment-jsdom",
+    "testEnvironment": "jest-environment-node",
     "testEnvironmentOptions": {
       // specify any option for your environment
     }
@@ -45,8 +46,8 @@ Create a jest config file just for running benchmarks. You can use names such as
 
 Now any files with names that match `*.bench.js`, or are inside `__benchmarks__` folder will be considered benchmark files. More examples:
 
-- [jest-jsdom.config.ts](jest-jsdom.config.ts)
-- [jest-node.config.ts](jest-node.config.ts)
+- [jest-jsdom.config.js](jest-jsdom.config.js)
+- [jest-node.config.js](jest-node.config.js)
 
 ```javascript
 import { benchmarkSuite } from "jest-bench";

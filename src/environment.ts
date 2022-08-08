@@ -5,10 +5,12 @@ import { EnvironmentContext } from "@jest/environment";
 
 import { createStore, getStore } from "./store";
 
-type Config = {
-  testEnvironment: string;
-  testEnvironmentOptions?: Record<string, unknown>;
-};
+type BenchmarkConfig = Partial<Pick<Config.ProjectConfig, "testEnvironment" | "testEnvironmentOptions">>
+
+type ConstructorConfig = {
+  projectConfig: Config.ProjectConfig & {testEnvironmentOptions?: BenchmarkConfig };
+  globalConfig: Config.GlobalConfig;
+}
 
 export default class BenchmarkEnvironment {
   env: any;
@@ -17,9 +19,9 @@ export default class BenchmarkEnvironment {
   fakeTimers: any;
   fakeTimersModern: any;
 
-  constructor(config: Config.ProjectConfig, context?: EnvironmentContext) {
-    const { testEnvironment, testEnvironmentOptions } = config.testEnvironmentOptions as Config;
-    let envModule = testEnvironment || "jest-environment-jsdom";
+  constructor(config: ConstructorConfig, context?: EnvironmentContext) {
+    const { testEnvironment, testEnvironmentOptions } = config.projectConfig.testEnvironmentOptions;
+    let envModule = testEnvironment || "jest-environment-node";
     if (envModule === "jsdom") {
       envModule = "jest-environment-jsdom";
     }
@@ -28,10 +30,14 @@ export default class BenchmarkEnvironment {
     }
     config = {
       ...config,
-      testEnvironment: envModule,
-      testEnvironmentOptions: testEnvironmentOptions || {},
+      projectConfig: {
+        ...config.projectConfig,
+        testEnvironment: envModule,
+        testEnvironmentOptions: testEnvironmentOptions || {},
+      }
     };
-    const cls = require(envModule);
+    const clsImport = require(envModule);
+    const cls = clsImport.default ?? clsImport
     const env = new cls(config, context);
 
     this.global = env.global || global;
