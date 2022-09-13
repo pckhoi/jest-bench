@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   preset: "ts-jest",
   coverageProvider: "v8",
   testEnvironment: "./environment.js",
