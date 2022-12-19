@@ -1,3 +1,6 @@
+![version](https://img.shields.io/npm/v/jest-bench)
+![downloads](https://img.shields.io/npm/dw/jest-bench)
+
 # Jest-Bench
 
 Run benchmark with Jest. Write benchmark files along with your test files, and benchmark using any existing test environment you're using. This package builds on top of the excellent [benchmark](https://www.npmjs.com/package/benchmark) package.
