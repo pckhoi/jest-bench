@@ -1,16 +1,18 @@
 import Benchmark from "./benchmark";
 import { saveResult } from "./store";
+import { Deferred } from 'benchmark';
 
 export type SuiteDescription = {
-  [key: string]: (() => Promise<void> | void) | undefined;
+  setup?: (() => Promise<void> | void),
+  teardown?: (() => Promise<void> | void),
+  setupSuite?: (() => Promise<void> | void),
+  teardownSuite?: (() => Promise<void> | void),
+  [key: string]: (() => Promise<void> | void) | ((deferred: Deferred) => Promise<void> | void) | undefined;
 };
 
 export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 60000) => {
   describe(name, () => {
-    const setup = desc.setup;
-    const teardown = desc.teardown;
-    const setupSuite = desc.setupSuite;
-    const teardownSuite = desc.teardownSuite;
+    const { setup, teardown, setupSuite, teardownSuite } = desc;
     if (setupSuite) {
       beforeAll(setupSuite);
     }
@@ -27,6 +29,7 @@ export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 6
           () =>
             new Promise((resolve, reject) => {
               const bm = Benchmark(key, {
+                defer: fn.length === 1,
                 setup,
                 fn,
                 teardown,
