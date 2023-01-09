@@ -30,7 +30,7 @@ Create a jest config file just for running benchmarks. You can use names such as
 
 ```javascript
 {
-  // Jest-bench need its own test environemtn to function
+  // Jest-bench need its own test environment to function
   "testEnvironment": "jest-bench/environment",
   "testEnvironmentOptions": {
     // still Jest-bench environment will run your environment if you specify it here
@@ -84,6 +84,11 @@ benchmarkSuite("sample", {
 
   ["Array.push"]: () => {
     a.push(1000000);
+  },
+
+  ["Async test"]: (deferred) => {
+    // Call deferred.resolve() at the end of the test.
+    new Promise((resolve) => setTimeout(resolve, 10)).then(() => deferred.resolve());
   },
 });
 ```
