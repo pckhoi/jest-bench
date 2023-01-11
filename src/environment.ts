@@ -18,6 +18,7 @@ export default class BenchmarkEnvironment {
   moduleMocker: any;
   fakeTimers: any;
   fakeTimersModern: any;
+  protected _rootDir: string;
 
   constructor(config: ConstructorConfig, context?: EnvironmentContext) {
     const { testEnvironment, testEnvironmentOptions } = config.projectConfig.testEnvironmentOptions;
@@ -45,6 +46,7 @@ export default class BenchmarkEnvironment {
     this.fakeTimers = env.fakeTimers || null;
     this.moduleMocker = env.moduleMocker || null;
     this.fakeTimersModern = env.fakeTimersModern || null;
+    this._rootDir = config.globalConfig.rootDir;
     if (env.getVmContext) {
       function getVmContext() {
         return env.getVmContext();
@@ -71,16 +73,16 @@ export default class BenchmarkEnvironment {
   }
 
   get resultFile() {
-    return path.join(process.cwd(), "benchmarks", "result.txt");
+    return path.join(this._rootDir, "benchmarks", "result.txt");
   }
 
   async teardown() {
     const store = getStore(this.global);
-    const folder = path.join(process.cwd(), "benchmarks");
+    const fileName = this.resultFile;
+    const folder = path.dirname(fileName);
     if (!fs.existsSync(folder)) {
       fs.mkdirSync(folder);
     }
-    const fileName = this.resultFile;
     if (!fs.existsSync(fileName)) {
       fs.writeFileSync(fileName, "");
     }

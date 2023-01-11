@@ -20,10 +20,12 @@ const formatPeriod = (num: number) => {
 
 export default class BenchmarkReporter extends BaseReporter {
   protected _globalConfig: Config.GlobalConfig;
+  protected _rootDir: string;
 
   constructor(globalConfig: Config.GlobalConfig) {
     super();
     this._globalConfig = globalConfig;
+    this._rootDir = globalConfig.rootDir;
   }
 
   onRunStart(results: AggregatedResult, options: ReporterOnStartOptions): void {
@@ -35,7 +37,7 @@ export default class BenchmarkReporter extends BaseReporter {
   }
 
   get resultFile() {
-    return path.join(process.cwd(), "benchmarks", "result.txt");
+    return path.join(this._rootDir, "benchmarks", "result.txt");
   }
 
   onRunComplete(): Promise<void> {
