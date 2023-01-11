@@ -1,6 +1,6 @@
 import Benchmark from "./benchmark";
 import { saveResult } from "./store";
-import { Deferred } from 'benchmark';
+import { Deferred, Options } from 'benchmark';
 
 export type SuiteDescription = {
   setup?: (() => Promise<void> | void),
@@ -10,8 +10,25 @@ export type SuiteDescription = {
   [key: string]: (() => Promise<void> | void) | ((deferred: Deferred) => Promise<void> | void) | undefined;
 };
 
-export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 60000) => {
+const defaultTimeoutSeconds = 60;
+
+type OverridableOptions = Pick<Options, "delay" | "initCount" | "maxTime" | "minSamples" | "minTime">;
+export type SuiteOptions = OverridableOptions & { timeoutSeconds?: number };
+
+export function benchmarkSuite(name: string, desc: SuiteDescription, timeoutMsOrOptions?: SuiteOptions | number): void {
   describe(name, () => {
+    let timeout: number;
+    let options: SuiteOptions = {};
+    if (timeoutMsOrOptions != null) {
+      if (typeof timeoutMsOrOptions == 'number') {
+        timeout = timeoutMsOrOptions;
+      } else {
+        options = timeoutMsOrOptions;
+        timeout = (options.timeoutSeconds ?? defaultTimeoutSeconds) * 1000;
+      }  
+    } else {
+      timeout = defaultTimeoutSeconds * 1000;
+    }
     const { setup, teardown, setupSuite, teardownSuite } = desc;
     if (setupSuite) {
       beforeAll(setupSuite);
@@ -29,6 +46,7 @@ export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 6
           () =>
             new Promise((resolve, reject) => {
               const bm = Benchmark(key, {
+                ...options,
                 defer: fn.length === 1,
                 setup,
                 fn,
@@ -54,4 +72,4 @@ export const benchmarkSuite = (name: string, desc: SuiteDescription, timeout = 6
       }
     }
   });
-};
+}

@@ -108,7 +108,7 @@ benchmarks/result.txt
 
 ## Reference
 
-### benchmarkSuite(name, description[, timeout])
+### benchmarkSuite(name, description[, timeoutMsOrOptions])
 
 Create and run a new suite. Each suite creates and is associated with a `describe` block underneath.
 
@@ -118,4 +118,8 @@ Create and run a new suite. Each suite creates and is associated with a `describ
   - **teardown**: run after each loop of benchmark. Note the caveat above.
   - **setupSuite**: run once before all benchmarks. This block, in effect, is the same as a `beforeAll` block (and it does call `beforeAll` underneath). Again you probably don't want to define or initialize variables here if you also include `setup` or `teardown`.
   - **teardownSuite**: run once after all benchmarks have concluded.
-- **timeout**: number of milliseconds before a benchmark timeout. Default to 60000.
+- **timeoutMsOrOptions**: 
+  - number of milliseconds before a benchmark timeouts. Default to 60000,
+  - or a `SuiteOptions`:
+    - `delay`, `initCount`, `maxTime`, `minSamples`, `minTime` are passed to Benchmark. See the [documentation](https://benchmarkjs.com/docs/#options) for more info.
+    - `timeoutSeconds` is the number of seconds before a benchmark timeouts. Default to 60.
