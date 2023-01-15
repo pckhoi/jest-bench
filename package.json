@@ -1,6 +1,6 @@
 {
   "name": "jest-bench",
-  "version": "29.3.1",
+  "version": "29.3.2",
   "description": "Run benchmark with Jest",
   "main": "dist/index.js",
   "scripts": {
