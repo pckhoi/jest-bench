@@ -7,7 +7,8 @@
     "test": "npm run build && jest --projects jest-node.config.ts jest-jsdom.config.ts",
     "test:node": "npm run build && jest --projects jest-node.config.ts",
     "prebuild": "rimraf dist",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "prepublish": "npm run build",
   "keywords": [
