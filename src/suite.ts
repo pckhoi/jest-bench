@@ -12,7 +12,7 @@ export type SuiteDescription = {
 
 const defaultTimeoutSeconds = 60;
 
-type OverridableOptions = Pick<Options, "delay" | "initCount" | "maxTime" | "minSamples" | "minTime">;
+type OverridableOptions = Partial<Pick<Options, "delay" | "initCount" | "maxTime" | "minSamples" | "minTime">>;
 export type SuiteOptions = OverridableOptions & { timeoutSeconds?: number };
 
 export function benchmarkSuite(name: string, desc: SuiteDescription, timeoutMsOrOptions?: SuiteOptions | number): void {
