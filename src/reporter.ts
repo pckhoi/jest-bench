@@ -8,12 +8,14 @@ import chalk from "chalk";
 import ndjson from "ndjson";
 
 const formatPeriod = (num: number) => {
-  if (num < 10 ** -6) {
-    return `${(num * 10 ** 6).toFixed(3)} μs`;
-  } else if (num < 10 ** -3) {
-    return `${(num * 10 ** 3).toFixed(3)} ms`;
+  if (num < 1e-9) {
+    return `${(num * 1e9).toFixed(3)} ns`;
+  } else if (num < 1e-6) {
+    return `${(num * 1e6).toFixed(3)} μs`;
+  } else if (num < 1e-3) {
+    return `${(num * 1e3).toFixed(3)} ms`;
   } else if (num < 1) {
-    return `${(num * 10 ** 3).toFixed(2)} ms`;
+    return `${(num * 1e3).toFixed(2)} ms`;
   }
   return `${num.toFixed(2)} s`;
 };
