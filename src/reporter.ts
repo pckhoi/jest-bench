@@ -18,14 +18,20 @@ const formatPeriod = (num: number) => {
   return `${num.toFixed(2)} s`;
 };
 
+export interface Options {
+  withOpsPerSecond?: boolean;
+}
+
 export default class BenchmarkReporter extends BaseReporter {
   protected _globalConfig: Config.GlobalConfig;
   protected _rootDir: string;
+  protected _options: Options;
 
-  constructor(globalConfig: Config.GlobalConfig) {
+  constructor(globalConfig: Config.GlobalConfig, options: Options = {}) {
     super();
     this._globalConfig = globalConfig;
     this._rootDir = globalConfig.rootDir;
+    this._options = options;
   }
 
   onRunStart(results: AggregatedResult, options: ReporterOnStartOptions): void {
@@ -57,6 +63,13 @@ export default class BenchmarkReporter extends BaseReporter {
               const { period } = times;
               lines.push([
                 name,
+                this._options.withOpsPerSecond
+                  ? chalk.blueBright(`${
+                    period > 0
+                      ? Math.round(1 / period).toLocaleString()
+                      : 0
+                  } ops/sec`)
+                  : '',
                 `${chalk.green(formatPeriod(period))} \xb1`,
                 chalk.cyan(`${rme.toFixed(2)} %`),
                 `(${size} run${size == 1 ? " " : "s"} sampled)`,

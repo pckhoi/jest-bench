@@ -48,6 +48,16 @@ Create a jest config file just for running benchmarks. You can use names such as
 }
 ```
 
+You can optionally define some reporter options for extra control
+
+```javascript
+{
+  ...,
+  "reporters": ["default", ["jest-bench/reporter", {withOpsPerSecond: true}]],
+  ...
+}
+```
+
 Now any files with names that match `*.bench.js`, or are inside `__benchmarks__` folder will be considered benchmark files. More examples:
 
 - [jest-jsdom.config.ts](jest-jsdom.config.ts)
